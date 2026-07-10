@@ -7,3 +7,4 @@ python-dotenv==1.0.1
 openai==1.95.1
 requests==2.32.3
 gunicorn==22.0.0
+psycopg2-binary==2.9.10
