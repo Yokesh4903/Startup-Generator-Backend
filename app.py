@@ -8,6 +8,8 @@ from database import db
 from routes.auth import auth_bp
 from routes.startup import startup_bp
 
+import psycopg2
+
 
 def create_app():
     app = Flask(__name__)
