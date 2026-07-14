@@ -2,7 +2,6 @@ from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from agents.orchestrator import run_startup_simulator
-from database.mongo import history
 
 startup_bp = Blueprint("startup", __name__)
 
@@ -14,31 +13,34 @@ def generate():
     data = request.get_json()
 
     idea = data.get("idea")
-    selected_agents = data.get("agents", [])
+
+    # Get selected agents
+    selected_agents = data.get("agents")
+
+    # If frontend sends [] or nothing, use all agents
+    if not selected_agents:
+        selected_agents = [
+            "CEO",
+            "Marketing",
+            "Sales",
+            "HR",
+            "Finance"
+        ]
 
     if not idea:
         return jsonify({
             "message": "Business idea is required."
         }), 400
 
-    # Run AI agents
+    print("Idea:", idea)
+    print("Agents:", selected_agents)
+    print("User:", get_jwt_identity())
+
     result = run_startup_simulator(
         idea,
         selected_agents
     )
 
-    # MongoDB user id from JWT
-    user_id = get_jwt_identity()
-
-    # Save history in MongoDB
-    history.insert_one({
-        "user_id": user_id,
-        "idea": idea,
-        "ceo": result.get("CEO", ""),
-        "marketing": result.get("Marketing", ""),
-        "sales": result.get("Sales", ""),
-        "hr": result.get("HR", ""),
-        "finance": result.get("Finance", "")
-    })
+    print("Result:", result)
 
     return jsonify(result), 200
