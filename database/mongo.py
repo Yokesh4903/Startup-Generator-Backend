@@ -6,16 +6,18 @@ load_dotenv()
 
 mongo_uri = os.getenv("MONGODB_URI")
 
-if not mongo_uri:
-    raise RuntimeError("MONGODB_URI environment variable is not set.")
+print("Mongo URI:", mongo_uri)
 
 client = MongoClient(
     mongo_uri,
-    serverSelectionTimeoutMS=5000
+    tls=True,
+    tlsAllowInvalidCertificates=False,
+    serverSelectionTimeoutMS=10000,
 )
+
+client.admin.command("ping")
 
 db = client["startup"]
 
 users = db["users"]
-
 history = db["history"]
