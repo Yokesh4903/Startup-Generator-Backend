@@ -4,13 +4,14 @@ from config import Config
 client = OpenAI(api_key=Config.OPENAI_API_KEY)
 
 
+# def ceo_agent(business_idea):
+
+#     prompt = f"""
+# You are an experienced Startup CEO.
+
+# Create a professional business strategy for:
 def ceo_agent(business_idea):
-
-    prompt = f"""
-You are an experienced Startup CEO.
-
-Create a professional business strategy for:
-
+    return "CEO agent is working!"
 Business Idea:
 {business_idea}
 
