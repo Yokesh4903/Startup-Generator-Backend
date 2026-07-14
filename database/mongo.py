@@ -14,9 +14,6 @@ client = MongoClient(
     serverSelectionTimeoutMS=5000
 )
 
-# Test MongoDB connection
-client.admin.command("ping")
-
 db = client["startup"]
 
 users = db["users"]
