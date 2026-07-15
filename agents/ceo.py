@@ -1,17 +1,18 @@
 from openai import OpenAI
 from config import Config
 
-client = OpenAI(api_key=Config.OPENAI_API_KEY)
+client = OpenAI(
+    api_key=Config.OPENAI_API_KEY
+)
 
 
-# def ceo_agent(business_idea):
-
-#     prompt = f"""
-# You are an experienced Startup CEO.
-
-# Create a professional business strategy for:
 def ceo_agent(business_idea):
-    return "CEO agent is working!"
+
+    prompt = f"""
+You are an experienced Startup CEO.
+
+Create a professional business strategy for the following startup.
+
 Business Idea:
 {business_idea}
 
@@ -41,7 +42,9 @@ Keep every section concise and professional.
 """
 
     response = client.chat.completions.create(
+
         model="gpt-4o-mini",
+
         messages=[
             {
                 "role": "system",
@@ -52,6 +55,7 @@ Keep every section concise and professional.
                 "content": prompt
             }
         ]
+
     )
 
     return response.choices[0].message.content
