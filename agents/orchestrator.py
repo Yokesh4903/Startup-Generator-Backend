@@ -13,10 +13,10 @@ def run_startup_simulator(business_idea, selected_agents=None):
     if not selected_agents:
         selected_agents = [
             "CEO",
-            "Marketing",
-            "Sales",
-            "HR",
-            "Finance"
+            # "Marketing",
+            # "Sales",
+            # "HR",
+            # "Finance"
         ]
 
     print("After Default:", selected_agents)
